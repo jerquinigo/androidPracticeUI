@@ -6,9 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,13 +36,24 @@ and here is where I will run an api call and present image in imageview xml"
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:src="@drawable/wow_dragon"
                 android:layout_gravity="center"
-                >
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/wow_dragon">
 
             </ImageView>
 
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="300dp"
+                android:layout_height="300dp">
+
+            </ImageView>
+
+
+
+
         </LinearLayout>
     </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
