@@ -19,18 +19,25 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="30dp"
+                android:fontFamily="serif"
                 android:text="Hello world, this is to practice dog api
 and here is where I will run an api call and present image in imageview xml"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="30dp"
-                android:textSize="18sp"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:fontFamily="serif">
+                android:textSize="18sp"></TextView>
 
-            </TextView>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:src="@drawable/wow_dragon"
+                android:layout_gravity="center"
+                >
+
+            </ImageView>
 
         </LinearLayout>
     </ScrollView>
