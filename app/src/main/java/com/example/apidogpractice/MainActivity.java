@@ -2,8 +2,8 @@ package com.example.apidogpractice;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.widget.ImageView;
@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //this if condition ignores running http calls on the main thread, risk of error with this present
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy gfgPolicy =
                     new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -30,11 +31,9 @@ public class MainActivity extends AppCompatActivity {
 
         // setting the image in the layout
        // imageView.setImageResource("https://media.wired.com/photos/593435045321273fc0f91ad5/master/pass/fry_660.jpg");
-        try {
-            imageView.setImageBitmap(BitmapFactory.decodeStream(new URL("https://media.wired.com/photos/593435045321273fc0f91ad5/master/pass/fry_660.jpg").openConnection().getInputStream()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+            imageView.setImageBitmap(convertUrlToImage("https://media.wired.com/photos/593435045321273fc0f91ad5/master/pass/fry_660.jpg"));
+
         imageView.setLayoutParams(new android.view.ViewGroup.LayoutParams(400,400));
         imageView.setMaxHeight(200);
         imageView.setMaxWidth(200);
@@ -52,5 +51,15 @@ public class MainActivity extends AppCompatActivity {
 //            // Adds the view to the layout
 //            layout.addView(image);
 //        }
+    }
+
+    //method to convert url to image to use in project
+    public Bitmap convertUrlToImage(String imageUrl) {
+        try {
+            return BitmapFactory.decodeStream(new URL(imageUrl).openConnection().getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
