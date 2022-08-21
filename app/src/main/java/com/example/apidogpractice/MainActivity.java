@@ -12,7 +12,12 @@ import android.widget.LinearLayout;
 import java.io.IOException;
 import java.net.URL;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class MainActivity extends AppCompatActivity {
+    String apiResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
         imageView.setMaxWidth(200);
         layout.addView(imageView);
 
+        getDogApi();
+
+
+
 
 //        for(int i=0;i<10;i++)
 //        {
@@ -62,4 +71,23 @@ public class MainActivity extends AppCompatActivity {
         }
         return null;
     }
+
+
+    public void getDogApi() {
+        OkHttpClient httpClient = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("https://dog.ceo/api/breeds/image/random/3")
+                .build();
+
+        try {
+            Response response = httpClient.newCall(request).execute();
+            this.apiResponse = response.body().string();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
 }
+
