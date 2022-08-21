@@ -9,8 +9,12 @@ import android.os.StrictMode;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -18,6 +22,7 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
     String apiResponse;
+    JsonNode responseNode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +50,20 @@ public class MainActivity extends AppCompatActivity {
         layout.addView(imageView);
 
         getDogApi();
+        imageArrayCreator();
+        ImageView imageView2;
+        if(this.responseNode != null) {
+            for(int i = 0; i < this.responseNode.size(); i++) {
+                System.out.println(this.responseNode.get(i));
+                 imageView2  = new ImageView(MainActivity.this);
+                imageView2.setImageBitmap(convertUrlToImage(this.responseNode.get(i).asText()));
+
+                imageView2.setLayoutParams(new android.view.ViewGroup.LayoutParams(400,400));
+                imageView2.setMaxHeight(200);
+                imageView2.setMaxWidth(200);
+                layout.addView(imageView2);
+            }
+        }
 
 
 
@@ -88,6 +107,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void imageArrayCreator() {
+        JsonNode node = null;
+        ObjectMapper dataMapper = new ObjectMapper();
+
+        try {
+            node = dataMapper.readTree(this.apiResponse);
+            this.responseNode = node.path("message");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 }
 
